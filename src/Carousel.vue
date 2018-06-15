@@ -71,6 +71,9 @@ export default {
   border-right: 32px solid transparent;
 }
 .banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 300px;
   height: 100px;
   background: green;
@@ -78,6 +81,10 @@ export default {
 .content {
   display: none;
   color: white;
+  width: 90%;
+  height: 90%;
+  background: yellow;
+  color: black;
 }
 .content.active {
   display: block;
