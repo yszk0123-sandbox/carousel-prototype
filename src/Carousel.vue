@@ -63,6 +63,10 @@ export default {
       this.slide(this.currentPage, page, reverse);
     },
     slide(from, to, reverse) {
+      if (from === to) {
+        return;
+      }
+
       this.reverse = reverse;
       this.previousPage = from;
       this.currentPage = to;
