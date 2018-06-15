@@ -2,18 +2,20 @@
   <div class="carousel">
     <div class="main">
       <div class="left-arrow" v-on:click="goToPrevious"></div>
-      <div class="banner" v-bind:class="{ reverse: reverse }">
-        <transition name="slide">
+      <div class="banner">
+        <div
+          class="slide-container"
+          v-bind:class="{ sliding, reverse }"
+        >
           <div
-            v-bind:key="page.id"
-            v-for="(page, index) in pages"
-            v-if="index === activePage"
-            class="content"
+            class="slide-content"
+            v-for="(page, index) in slidingPages"
+            v-bind:key="keyForPage(page, index)"
             v-bind:style="{ background: page.color }"
           >
-            {{ pages[activePage].text }}
+            {{ page.text }}
           </div>
-        </transition>
+        </div>
       </div>
       <div class="right-arrow" v-on:click="goToNext"></div>
     </div>
@@ -22,7 +24,7 @@
         v-bind:key="page.id"
         v-for="(page, index) in pages"
         class="dot"
-        v-bind:class="{ active: index === activePage }"
+        v-bind:class="{ active: index === currentPage }"
         v-on:click="goTo(index)"
       >
       </div>
@@ -30,9 +32,14 @@
   </div>
 </template>
 <script>
+const SLIDE_TIMEOUT = 500;
+const DUMMY_PAGE = { dummy: true, id: 0, text: '3', color: 'blue' };
+
 export default {
   data: () => ({
-    activePage: 0,
+    sliding: false,
+    currentPage: 0,
+    previousPage: 1,
     reverse: false,
     pages: [
       { id: 1, text: '1', color: 'red' },
@@ -42,18 +49,51 @@ export default {
   }),
   methods: {
     goToPrevious(event) {
-      this.reverse = true;
       const length = this.pages.length;
-      this.activePage = (length + this.activePage - 1) % length;
+      const to = (length + this.currentPage - 1) % length;
+      this.slide(this.currentPage, to, true);
     },
     goToNext(event) {
-      this.reverse = false;
       const length = this.pages.length;
-      this.activePage = (this.activePage + 1) % length;
+      const to = (this.currentPage + 1) % length;
+      this.slide(this.currentPage, to, false);
     },
     goTo(page) {
-      this.reverse = page < this.activePage;
-      this.activePage = page;
+      const reverse = page < this.currentPage;
+      this.slide(this.currentPage, page, reverse);
+    },
+    slide(from, to, reverse) {
+      this.reverse = reverse;
+      this.previousPage = from;
+      this.currentPage = to;
+
+      this.sliding = true;
+      setTimeout(() => {
+        this.sliding = false;
+      }, SLIDE_TIMEOUT);
+    },
+    keyForPage(page, index) {
+      return page.dummy ? 'dummy' + index : page.id;
+    }
+  },
+  computed: {
+    slidingPages() {
+      if (!this.sliding) {
+        return this.reverse
+          ? [DUMMY_PAGE, this.pages[this.currentPage], DUMMY_PAGE]
+          : [DUMMY_PAGE, this.pages[this.currentPage], DUMMY_PAGE];
+      }
+      return this.reverse
+        ? [
+            this.pages[this.currentPage],
+            this.pages[this.previousPage],
+            DUMMY_PAGE
+          ]
+        : [
+            DUMMY_PAGE,
+            this.pages[this.previousPage],
+            this.pages[this.currentPage]
+          ];
     }
   }
 };
@@ -95,7 +135,20 @@ export default {
   overflow: hidden;
 }
 
-.content {
+.slide-container {
+  pointer-events: none;
+  margin-left: -300px;
+}
+.slide-container:not(.reverse).sliding {
+  transition: all 0.5s;
+  transform: translateX(-300px);
+}
+.slide-container.reverse.sliding {
+  transition: all 0.5s;
+  transform: translateX(300px);
+}
+
+.slide-content {
   display: inline-block;
   color: white;
   width: 300px;
@@ -103,29 +156,6 @@ export default {
   border: 1px solid black;
   background: yellow;
   color: black;
-}
-
-.content.slide-enter-active,
-.content.slide-leave-active {
-  transition: all 0.5s;
-}
-
-:not(.reverse) > .content.slide-enter,
-:not(.reverse) > .content.slide-leave {
-  transform: translateX(0);
-}
-:not(.reverse) > .content.slide-enter-to,
-:not(.reverse) > .content.slide-leave-to {
-  transform: translateX(-100%);
-}
-
-.reverse > .content.slide-enter,
-.reverse > .content.slide-leave {
-  transform: translateX(-100%);
-}
-.reverse > .content.slide-enter-to,
-.reverse > .content.slide-leave-to {
-  transform: translateX(0);
 }
 
 .footer {
@@ -142,7 +172,6 @@ export default {
   opacity: 0.5;
   transition: opacity 0.5s;
 }
-
 .dot.active {
   opacity: 1;
 }
