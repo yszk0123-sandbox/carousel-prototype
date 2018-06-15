@@ -1,0 +1,20 @@
+{
+  "name": "carousel-prototype",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Yuji Suzuki <y0suzuki0123@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^2.0.0",
+    "parcel-bundler": "^1.9.0",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.0",
+    "vue": "^2.5.16",
+    "vue-hot-reload-api": "^2.3.0"
+  }
+}
