@@ -9,4 +9,4 @@ var t=arguments[3];Object.defineProperty(exports,"__esModule",{value:!0});var e=
 },{}],4:[function(require,module,exports) {
 "use strict";var e=require("vue"),r=i(e),u=require("./Carousel"),n=i(u);function i(e){return e&&e.__esModule?e:{default:e}}require("normalize.css"),require("./index.css"),new r.default({el:"#app",render:function(e){return e(n.default)}});
 },{"vue":8,"./Carousel":12,"normalize.css":9,"./index.css":9}]},{},[4], null)
-//# sourceMappingURL=/carousel-prototype/dist/app.6e1d17a3.map
+//# sourceMappingURL=/carousel-prototype/app.6e1d17a3.map
