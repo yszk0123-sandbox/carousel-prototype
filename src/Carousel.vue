@@ -1,7 +1,7 @@
 <template>
   <div class="carousel">
     <div class="main">
-      <div class="left-arrow"></div>
+      <div class="left-arrow" v-on:click="goToPrevious"></div>
       <div class="banner">
         <div
           v-bind:key="page.id"
@@ -12,7 +12,7 @@
           {{ page.text }}
         </div>
       </div>
-      <div class="right-arrow"></div>
+      <div class="right-arrow" v-on:click="goToNext"></div>
     </div>
     <div class="footer">
       <div
@@ -20,6 +20,7 @@
         v-for="(page, index) in pages"
         class="dot"
         v-bind:class="{ active: index === activePage }"
+        v-on:click="goTo(index)"
       >
       </div>
     </div>
@@ -30,7 +31,18 @@ export default {
   data: () => ({
     activePage: 0,
     pages: [{ id: 1, text: '1' }, { id: 2, text: '2' }]
-  })
+  }),
+  methods: {
+    goToPrevious(event) {
+      this.activePage = Math.max(0, this.activePage - 1);
+    },
+    goToNext(event) {
+      this.activePage = Math.min(this.pages.length - 1, this.activePage + 1);
+    },
+    goTo(page) {
+      this.activePage = page;
+    }
+  }
 };
 </script>
 
