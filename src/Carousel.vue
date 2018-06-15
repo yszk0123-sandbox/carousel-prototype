@@ -170,7 +170,8 @@ export default {
   height: 16px;
   background: red;
   opacity: 0.5;
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
+  transition-delay: 0.2s;
 }
 .dot.active {
   opacity: 1;
