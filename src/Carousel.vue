@@ -118,7 +118,7 @@ export default {
   margin-right: 16px;
   border-top: 24px solid transparent;
   border-bottom: 24px solid transparent;
-  border-left: 32px solid transparent;
+  border-left: none;
   border-right: 32px solid blue;
 }
 
@@ -127,7 +127,7 @@ export default {
   border-top: 24px solid transparent;
   border-bottom: 24px solid transparent;
   border-left: 32px solid blue;
-  border-right: 32px solid transparent;
+  border-right: none;
 }
 
 .banner {
