@@ -3,11 +3,11 @@
 }
 .carousel[data-v-36ee38],.main[data-v-36ee38]{display:flex;align-items:center
 }
-.left-arrow[data-v-36ee38]{margin-right:16px;border-left:32px solid transparent;border-right:32px solid blue
+.left-arrow[data-v-36ee38]{margin-right:16px;border-left:none;border-right:32px solid blue
 }
 .left-arrow[data-v-36ee38],.right-arrow[data-v-36ee38]{border-top:24px solid transparent;border-bottom:24px solid transparent
 }
-.right-arrow[data-v-36ee38]{margin-left:16px;border-left:32px solid blue;border-right:32px solid transparent
+.right-arrow[data-v-36ee38]{margin-left:16px;border-left:32px solid blue;border-right:none
 }
 .banner[data-v-36ee38]{width:300px;height:100px;background:green;white-space:nowrap;overflow:hidden
 }
