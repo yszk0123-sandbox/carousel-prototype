@@ -9,9 +9,9 @@
         >
           <div
             class="slide-content"
-            v-for="(page, index) in slidingPages"
             v-bind:key="keyForPage(page, index)"
             v-bind:style="{ background: page.color }"
+            v-for="(page, index) in slidingPages"
           >
             {{ page.text }}
           </div>
@@ -21,16 +21,17 @@
     </div>
     <div class="footer">
       <div
-        v-bind:key="page.id"
-        v-for="(page, index) in pages"
         class="dot"
         v-bind:class="{ active: index === currentPage }"
+        v-bind:key="page.id"
+        v-for="(page, index) in pages"
         v-on:click="goTo(index)"
       >
       </div>
     </div>
   </div>
 </template>
+
 <script>
 const SLIDE_TIMEOUT = 500;
 const DUMMY_PAGE = { dummy: true, id: 0, text: '3', color: 'blue' };
