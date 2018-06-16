@@ -83,9 +83,7 @@ export default {
   computed: {
     slidingPages() {
       if (!this.sliding) {
-        return this.reverse
-          ? [DUMMY_PAGE, this.pages[this.currentPage], DUMMY_PAGE]
-          : [DUMMY_PAGE, this.pages[this.currentPage], DUMMY_PAGE];
+        return [DUMMY_PAGE, this.pages[this.currentPage], DUMMY_PAGE];
       }
       return this.reverse
         ? [
